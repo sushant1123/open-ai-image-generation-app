@@ -12,10 +12,10 @@ cloudinary.config({
 	api_secret: process.env.CLDOUDINARY_API_SECRET,
 });
 
-//get all routes
+//get all posts
 router.route("/").get(async (req, res) => {
 	try {
-		const posts = await Post.find({}).sort();
+		const posts = await Post.find({}).sort({ createdAt: "-1" });
 
 		res.status(200).json({ success: true, data: posts });
 	} catch (error) {
@@ -24,7 +24,7 @@ router.route("/").get(async (req, res) => {
 	}
 });
 
-//post a route
+//create a post
 router.route("/").post(async (req, res) => {
 	try {
 		const { name, photo, prompt } = req.body;

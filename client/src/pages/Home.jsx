@@ -21,11 +21,14 @@ const Home = () => {
 		const fetchPosts = async () => {
 			setLoading(true);
 			try {
-				const response = await axios.get("http://localhost:8080/api/v1/post", {
-					headers: {
-						"Content-Type": "application/json",
-					},
-				});
+				const response = await axios.get(
+					"https://open-ai-image-generation-server-app.onrender.com/api/v1/post",
+					{
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				);
 				if (response.data.success) {
 					setAllPosts(response.data.data);
 				}

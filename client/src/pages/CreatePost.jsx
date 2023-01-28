@@ -24,11 +24,14 @@ const CreatePost = () => {
 		if (form.prompt && form.photo) {
 			try {
 				setLoading(true);
-				const response = await axios.post("http://localhost:8080/api/v1/post", {
-					prompt: form.prompt,
-					name: form.name,
-					photo: form.photo,
-				});
+				const response = await axios.post(
+					"https://open-ai-image-generation-server-app.onrender.com/api/v1/post",
+					{
+						prompt: form.prompt,
+						name: form.name,
+						photo: form.photo,
+					}
+				);
 				console.log(response);
 				navigate("/");
 			} catch (error) {
@@ -57,9 +60,12 @@ const CreatePost = () => {
 		if (form.prompt) {
 			try {
 				setGeneratingImg(true);
-				const response = await axios.post("http://localhost:8080/api/v1/dalle", {
-					prompt: form.prompt,
-				});
+				const response = await axios.post(
+					"https://open-ai-image-generation-server-app.onrender.com/api/v1/dalle",
+					{
+						prompt: form.prompt,
+					}
+				);
 				const { data } = response;
 				console.log({ response });
 				setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });

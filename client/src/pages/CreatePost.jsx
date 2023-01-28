@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { preview } from "../assets";
 import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
+import axios from "axios";
 
 let initialState = {
 	name: "",
@@ -30,7 +31,26 @@ const CreatePost = () => {
 		setForm({ ...form, prompt: randomPrompt });
 	};
 
-	const generateImage = (e) => {};
+	const generateImage = async () => {
+		if (form.prompt) {
+			try {
+				setGeneratingImg(true);
+				const response = await axios.post("http://localhost:8080/api/v1/dalle", {
+					prompt: form.prompt,
+				});
+				const { data } = response;
+				console.log({ response });
+				setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+			} catch (error) {
+				console.log(error);
+				alert(error);
+			} finally {
+				setGeneratingImg(false);
+			}
+		} else {
+			alert("Please enter a prompt");
+		}
+	};
 
 	return (
 		<section className="max-w-7xl mx-auto">

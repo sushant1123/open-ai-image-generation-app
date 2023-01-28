@@ -18,7 +18,29 @@ const CreatePost = () => {
 	const [generatingImg, setGeneratingImg] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	const handleCreatePostSubmit = (e) => {};
+	const handleCreatePostSubmit = async (e) => {
+		e.preventDefault();
+
+		if (form.prompt && form.photo) {
+			try {
+				setLoading(true);
+				const response = await axios.post("http://localhost:8080/api/v1/post", {
+					prompt: form.prompt,
+					name: form.name,
+					photo: form.photo,
+				});
+				console.log(response);
+				navigate("/");
+			} catch (error) {
+				console.log(error);
+				alert(error);
+			} finally {
+				setLoading(false);
+			}
+		} else {
+			alert("Please enter a prompt and generate an image");
+		}
+	};
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;

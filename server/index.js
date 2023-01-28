@@ -16,7 +16,7 @@ app.use("/api/v1/post", postRoutes);
 app.use("/api/v1/dalle", dalleRoutes);
 
 app.get("/", (req, res) => {
-	res.json("Hello from DALL-E");
+	res.json("Hello from open-ai-image-generation-app server");
 });
 
 const startServer = () => {
